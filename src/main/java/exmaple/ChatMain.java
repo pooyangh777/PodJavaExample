@@ -74,7 +74,7 @@ public class ChatMain implements ChatContract.view {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("176e13b2cad64191b6622a65927309ae.XzIwMjM0")
+                .token("67fc5bde53444a1ca56bfd56fa7f3b95.XzIwMjM0")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
