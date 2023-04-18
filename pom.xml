@@ -13,6 +13,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>my-local-repo</id>
+            <url>file://E:/JAVAintelliJ/PodJavaChatSDK/PodJavaChatSDK</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>

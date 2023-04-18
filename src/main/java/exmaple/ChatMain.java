@@ -2,12 +2,21 @@ package exmaple;
 
 import asyncSdk.Async;
 import asyncSdk.AsyncConfig;
-import chatSdk.asyncSdk.exception.ConnectionException;
-import chatSdk.asyncSdk.model.*;
-import chatSdk.asyncSdk.util.*;
-import chatSdk.chat.requestobject.*;
-import chatSdk.mainmodel.Invitee;
-import chatSdk.mainmodel.MessageVO;
+
+import chatSdk.chat.Chat;
+import chatSdk.chat.ChatListener;
+import chatSdk.dataTransferObject.chat.*;
+import chatSdk.dataTransferObject.contacts.outPut.*;
+import chatSdk.dataTransferObject.file.outPut.RequestFileMessage;
+import chatSdk.dataTransferObject.file.outPut.RequestReplyFileMessage;
+import chatSdk.dataTransferObject.file.outPut.RequestUploadFile;
+import chatSdk.dataTransferObject.file.outPut.RequestUploadImage;
+import chatSdk.dataTransferObject.message.inPut.ResultNewMessage;
+import chatSdk.dataTransferObject.message.outPut.*;
+import chatSdk.dataTransferObject.system.outPut.*;
+import chatSdk.dataTransferObject.thread.inPut.Invitee;
+import chatSdk.dataTransferObject.thread.outPut.*;
+import chatSdk.dataTransferObject.user.outPut.*;
 import chatSdk.mainmodel.RequestSearchContact;
 import chatSdk.mainmodel.RequestThreadInnerMessage;
 import com.google.gson.Gson;
@@ -15,16 +24,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created By Khojasteh on 7/27/2019
  */
-public class ChatMain implements ChatContract.view {
+public class ChatMain implements ChatListener {
     public static String platformHost = "https://sandbox.pod.ir:8043";
     public static String socketAddress = "wss://msg.pod.ir/ws";
-    public static String token = "63b9aa126f814222bec6004663de3cc9";
-//    "63b9aa126f814222bec6004663de3cc9"
+    public static String token = "66a395e66ba64a0ca93c6f9f6e3d4432.XzIwMjM0";
+    //    "63b9aa126f814222bec6004663de3cc9"
     public static String ssoHost = "http://172.16.110.235";
     public static String fileServer = "https://core.pod.ir";
     public static String serverName = "chatlocal";
@@ -49,7 +57,8 @@ public class ChatMain implements ChatContract.view {
 //    public static String queueUserName = "root";
 //    public static String queuePassword = "zalzalak";
 //    public static Long chatId = 4101L;
-    static ChatController chatController;
+
+    static Chat chat;
 
 
     private static Logger logger = LogManager.getLogger(Async.class);
@@ -58,7 +67,8 @@ public class ChatMain implements ChatContract.view {
     void init() {
         boolean isSocket = true;
         String serverName = isSocket ? socketServerName : this.serverName;
-        AsyncConfig asyncConfig = AsyncConfig.builder()
+        AsyncConfig asyncConfig = AsyncConfig
+                .builder()
                 .isSocketProvider(isSocket)
                 .socketAddress(socketAddress)
                 .serverName(serverName)
@@ -74,7 +84,7 @@ public class ChatMain implements ChatContract.view {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("67fc5bde53444a1ca56bfd56fa7f3b95.XzIwMjM0")
+                .token("708bf82a272d48a69b0835a52a4cfc05.XzIwMjM0")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -82,33 +92,30 @@ public class ChatMain implements ChatContract.view {
                 .platformHost(platformHost)
                 .isLoggable(true)
                 .build();
-        chatController = new ChatController(this, chatConfig);
         try {
-            chatController.connect();
+            chat = Chat.init(chatConfig, this);
+            chat.connect();
             Thread.sleep(10000);
-        } catch (ConnectionException | InterruptedException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void onState(ChatState state) {
-        ChatContract.view.super.onState(state);
-        if (state == ChatState.ChatReady) {
-            getThreads();
-        }
-    }
-
     /*********************************************************************
      *                             ADMIN                                 *
      *********************************************************************/
+
+    @Override
+    public void onChatState(ChatState state) {
+        ChatListener.super.onChatState(state);
+    }
 
     /**
      * set role
      */
 
 
-    void addAdmin() {
+
+    public void addAdmin() {
         RequestRole requestRole = new RequestRole();
         requestRole.setId(4781);
         requestRole.setRoleTypes(new ArrayList<String>() {{
@@ -123,7 +130,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5941, requestRoleArrayList)
                 .build();
 
-        chatController.addAdmin(requestSetAdmin);
+        chat.addAdmin(requestSetAdmin);
 
     }
 
@@ -142,7 +149,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5461, requestRoleArrayList)
                 .build();
 
-        chatController.addAuditor(requestSetAuditor);
+        chat.addAuditor(requestSetAuditor);
 
     }
 
@@ -163,7 +170,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5941, requestRoleArrayList)
                 .build();
 
-        chatController.removeAdmin(requestSetAdmin);
+        chat.removeAdmin(requestSetAdmin);
 
     }
 
@@ -184,7 +191,7 @@ public class ChatMain implements ChatContract.view {
                 .build();
 
 
-        chatController.removeAuditor(requestSetAuditor);
+        chat.removeAuditor(requestSetAuditor);
 
     }
 
@@ -194,7 +201,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5941)
                 .build();
 
-        chatController.getAdminList(requestGetAdmin);
+        chat.getAdminList(requestGetAdmin);
     }
 
     /******************************************************************
@@ -210,7 +217,7 @@ public class ChatMain implements ChatContract.view {
                 .cellphoneNumber("09359684661")
                 .lastName("شادی")
                 .build();
-        chatController.addContact(requestAddContact);
+        chat.addContact(requestAddContact);
     }
 
     /**
@@ -221,7 +228,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(20714)
                 .build();
 
-        chatController.removeContact(requestRemoveContact);
+        chat.removeContact(requestRemoveContact);
     }
 
     /**
@@ -232,7 +239,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(13882, "زهرا", "مظلوم", "09156452709", "zahra@gmail.com")
                 .build();
 
-        chatController.updateContact(requestUpdateContact);
+        chat.updateContact(requestUpdateContact);
     }
 
     /**
@@ -244,7 +251,7 @@ public class ChatMain implements ChatContract.view {
                 .cellphoneNumber("09156452709")
                 .build();
 
-        chatController.searchContact(searchContact);
+        chat.searchContact(searchContact);
     }
 
     /**
@@ -254,7 +261,7 @@ public class ChatMain implements ChatContract.view {
         RequestGetContact requestGetContact = new RequestGetContact
                 .Builder()
                 .build();
-        chatController.getContact(requestGetContact);
+        chat.getContacts(requestGetContact);
     }
 
     /**
@@ -266,7 +273,7 @@ public class ChatMain implements ChatContract.view {
                 .contactId(13882)
                 .build();
 
-        chatController.block(requestBlock);
+        chat.block(requestBlock);
     }
 
     /**
@@ -279,7 +286,7 @@ public class ChatMain implements ChatContract.view {
                 .blockId(2041)
                 .build();
 
-        chatController.unBlock(requestUnBlock);
+        chat.unblock(requestUnBlock);
     }
 
     /**
@@ -290,7 +297,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder()
                 .build();
 
-        chatController.getBlockList(requestBlockList);
+        chat.getBlockList(requestBlockList);
     }
     /******************************************************************
      *                           HISTORY                              *
@@ -304,7 +311,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5461)
                 .build();
 
-        chatController.clearHistory(requestClearHistory);
+        chat.clearHistory(requestClearHistory);
     }
 
     /**
@@ -321,7 +328,7 @@ public class ChatMain implements ChatContract.view {
 //                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})
                 .build();
 
-        chatController.getHistory(requestGetHistory2);
+        chat.getHistory(requestGetHistory2);
 
      /*   RequestGetHistory requestGetHistory1 = new RequestGetHistory
                 .Builder(5461)
@@ -342,7 +349,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5941)
                 .build();
 
-        chatController.leaveThread(leaveThread);
+        chat.leaveThread(leaveThread);
     }
 
     /**
@@ -355,7 +362,7 @@ public class ChatMain implements ChatContract.view {
         }})
                 .build();
 
-        chatController.deleteMessage(deleteMessage);
+        chat.deleteMessage(deleteMessage);
     }
 
     /**
@@ -381,7 +388,7 @@ public class ChatMain implements ChatContract.view {
         }})
                 .message(requestThreadInnerMessage)
                 .build();
-        chatController.createThreadWithMessage(requestCreateThreadWithMessage);
+        chat.createThreadWithMessage(requestCreateThreadWithMessage);
 
     }
 
@@ -414,7 +421,7 @@ public class ChatMain implements ChatContract.view {
                 .build();
 
 
-        chatController.createThreadWithFileMessage(requestCreateThreadWithFile);
+        chat.createThreadWithFileMessage(requestCreateThreadWithFile);
 
     }
 
@@ -425,7 +432,7 @@ public class ChatMain implements ChatContract.view {
         RequestEditMessage requestEditMessage = new RequestEditMessage
                 .Builder("hiii", 72301)
                 .build();
-        chatController.editMessage(requestEditMessage);
+        chat.editMessage(requestEditMessage);
     }
 
     /**
@@ -436,7 +443,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder("seen list", 5701)
                 .build();
 
-        chatController.sendTextMessage(requestThread);
+        chat.sendTextMessage(requestThread);
     }
 
     /**
@@ -446,7 +453,7 @@ public class ChatMain implements ChatContract.view {
         RequestThread requestThread = new RequestThread
                 .Builder()
                 .build();
-        chatController.getThreads(requestThread);
+        chat.getThreads(requestThread);
     }
 
     /**
@@ -461,7 +468,7 @@ public class ChatMain implements ChatContract.view {
                 .deleteForAll(true)
                 .build();
 
-        chatController.deleteMultipleMessage(requestDeleteMessage);
+        chat.deleteMultipleMessage(requestDeleteMessage);
     }
 
     /**
@@ -474,7 +481,7 @@ public class ChatMain implements ChatContract.view {
         }})
                 .build();
 
-        chatController.forwardMessage(forwardMessage);
+        chat.forwardMessage(forwardMessage);
     }
 
     /**
@@ -485,7 +492,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder("hi", 6362, 72301)
                 .build();
 
-        chatController.replyMessage(requestReplyMessage);
+        chat.replyMessage(requestReplyMessage);
     }
 
     /**
@@ -518,7 +525,7 @@ public class ChatMain implements ChatContract.view {
         invitees[0] = invitee;
 //        invitees[1] = invitee2;
 
-        chatController.createThread(ThreadType.NORMAL, invitees, "sendMessage", "", "", "", "default");
+        chat.createThread(ThreadType.NORMAL, invitees, "sendMessage", "", "", "", "default");
     }
 
     /**
@@ -529,7 +536,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(55216)
                 .build();
 
-        chatController.seenMessageList(requestSeenMessageList);
+        chat.getMessageSeenList(requestSeenMessageList);
     }
 
     /**
@@ -540,7 +547,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(55216)
                 .build();
 
-        chatController.deliveredMessageList(requestDeliveredMessageList);
+        chat.getMessageDeliveredList(requestDeliveredMessageList);
     }
 
     /**
@@ -551,7 +558,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(4982)
                 .build();
 
-        chatController.muteThread(requestMuteThread);
+        chat.muteThread(requestMuteThread);
     }
 
     /**
@@ -562,7 +569,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(4982)
                 .build();
 
-        chatController.unMuteThread(requestMuteThread);
+        chat.unMuteThread(requestMuteThread);
     }
 
     /**
@@ -574,7 +581,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(6450)
                 .build();
 
-        chatController.spam(requestSpam);
+        chat.spam(requestSpam);
     }
 
 
@@ -587,7 +594,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(56249, "OK")
                 .build();
 
-        chatController.interactiveMessage(requestInteract);
+        chat.interactMessage(requestInteract);
     }
 
 
@@ -596,7 +603,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5461)
                 .build();
 
-        chatController.pin(requestPinThread);
+        chat.pinThread(requestPinThread);
     }
 
     private void unPinThread() {
@@ -604,7 +611,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5461)
                 .build();
 
-        chatController.unPin(requestPinThread);
+        chat.unPinThread(requestPinThread);
     }
 
 
@@ -622,7 +629,7 @@ public class ChatMain implements ChatContract.view {
         }})
                 .build();
 
-        chatController.removeParticipants(requestRemoveParticipants);
+        chat.removeParticipants(requestRemoveParticipants);
     }
 
     /**
@@ -633,7 +640,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(5941)
                 .build();
 
-        chatController.getThreadParticipant(threadParticipant);
+        chat.getThreadParticipants(threadParticipant);
     }
 
     /**
@@ -646,7 +653,7 @@ public class ChatMain implements ChatContract.view {
         }})
                 .build();
 
-        chatController.addParticipants(addParticipants);
+        chat.addParticipants(addParticipants);
     }
 
     /******************************************************************
@@ -666,7 +673,7 @@ public class ChatMain implements ChatContract.view {
                 .wC(200)
                 .build();
 
-        chatController.uploadFileMessage(requestFileMessage, null);
+        chat.sendFileMessage(requestFileMessage, null);
     }
 
     /**
@@ -689,7 +696,7 @@ public class ChatMain implements ChatContract.view {
                 .hC(100)
                 .wC(200)
                 .build();
-        chatController.replyFileMessage(requestReplyFileMessage, null);
+        chat.replyFileMessage(requestReplyFileMessage, null);
     }
 
     /**
@@ -701,7 +708,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder("D:\\download.jpg")
                 .build();
         System.out.println(gson.toJson(requestUploadImage));
-        chatController.uploadImage(requestUploadImage);
+        chat.uploadImage(requestUploadImage);
     }
 
     /**
@@ -712,92 +719,10 @@ public class ChatMain implements ChatContract.view {
                 .Builder("D:\\Music.rar")
                 .build();
 
-        chatController.uploadFile(requestUploadFile);
+        chat.uploadFile(requestUploadFile);
 
 
     }
 
-    @Override
-    public void onNewMessage(ChatResponse<ResultNewMessage> chatResponse) {
-        ResultNewMessage resultNewMessage = chatResponse.getResult();
-//        if (!temp) {
-//            long threadId = resultNewMessage.getThreadId();
-//
-//            MessageVO messageVO = resultNewMessage.getMessageVO();
-//
-//            long messageId = messageVO.getId();
-//
-//            RequestReplyMessage requestReplyMessage = new RequestReplyMessage
-//                    .Builder("HELLOOOO", threadId, messageId)
-//                    .build();
-//
-//            chatController.replyMessage(requestReplyMessage, null);
-//            temp = true;
-//        }
-    }
-
-
-    @Override
-    public void onGetThreadHistory(ChatResponse<ResultHistory> history) {
-        List<MessageVO> messageVOS = history.getResult().getHistory();
-
-        for (MessageVO messageVO : messageVOS) {
-            if (!messageVO.getSeen() && messageVO.getParticipant().getId() != 4101) {
-
-                chatController.seenMessage(messageVO.getId(), messageVO.getParticipant().getId());
-            }
-        }
-
-    }
-
-    @Override
-    public void onCreateThread(ChatResponse<ResultThread> outPutThread) {
-        System.out.println("");
-    }
-
-    @Override
-    public void onError(ErrorOutPut error) {
-//        if (error.getErrorCode() == 21) {
-//            Scanner myObj = new Scanner(System.in);
-//            System.out.println("Enter token");
-//
-//            String token = myObj.nextLine();
-//
-//            chatController.setToke(token);
-//            getThreads();
-//
-//        }
-    }
-
-    @Override
-    public void onSearchContact(ChatResponse<ResultContact> chatResponse) {
-
-        System.out.println(gson.toJson(chatResponse));
-    }
-
-    @Override
-    public void OnInteractMessage(ChatResponse<ResultInteractMessage> chatResponse) {
-        System.out.println("helllo");
-    }
-
-    @Override
-    public void onGetContacts(ChatResponse<ResultContact> response) {
-        System.out.println(response);
-    }
-
-    @Override
-    public void onAddContact(ChatResponse<ResultAddContact> chatResponse) {
-        System.out.println(gson.toJson(chatResponse));
-    }
-
-    @Override
-    public void onSetRole(ChatResponse<ResultSetRole> chatResponse) {
-        System.out.println("helllo");
-    }
-
-    @Override
-    public void onRemoveRole(ChatResponse<ResultSetRole> chatResponse) {
-        System.out.println("helllo");
-    }
 
 }
