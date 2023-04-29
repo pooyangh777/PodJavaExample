@@ -6,18 +6,17 @@ import asyncSdk.AsyncConfig;
 import chatSdk.chat.Chat;
 import chatSdk.chat.ChatListener;
 import chatSdk.dataTransferObject.chat.*;
+import chatSdk.dataTransferObject.contacts.inPut.RequestSearchContact;
 import chatSdk.dataTransferObject.contacts.outPut.*;
 import chatSdk.dataTransferObject.file.outPut.RequestFileMessage;
 import chatSdk.dataTransferObject.file.outPut.RequestReplyFileMessage;
 import chatSdk.dataTransferObject.file.outPut.RequestUploadFile;
 import chatSdk.dataTransferObject.file.outPut.RequestUploadImage;
-import chatSdk.dataTransferObject.message.inPut.ResultNewMessage;
 import chatSdk.dataTransferObject.message.outPut.*;
 import chatSdk.dataTransferObject.system.outPut.*;
 import chatSdk.dataTransferObject.thread.inPut.Invitee;
 import chatSdk.dataTransferObject.thread.outPut.*;
 import chatSdk.dataTransferObject.user.outPut.*;
-import chatSdk.mainmodel.RequestSearchContact;
 import chatSdk.mainmodel.RequestThreadInnerMessage;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +30,7 @@ import java.util.ArrayList;
 public class ChatMain implements ChatListener {
     public static String platformHost = "https://sandbox.pod.ir:8043";
     public static String socketAddress = "wss://msg.pod.ir/ws";
-    public static String token = "66a395e66ba64a0ca93c6f9f6e3d4432.XzIwMjM0";
+    public static String token = "90c2a567ec85476dad8defc550371ea9.XzIwMjM0";
     //    "63b9aa126f814222bec6004663de3cc9"
     public static String ssoHost = "http://172.16.110.235";
     public static String fileServer = "https://core.pod.ir";
@@ -84,7 +83,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("708bf82a272d48a69b0835a52a4cfc05.XzIwMjM0")
+                .token("5f5a813e4c584847bfafa18481891c9d.XzIwMjM0")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -100,19 +99,29 @@ public class ChatMain implements ChatListener {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void onError(String s, ErrorOutPut errorOutPut) {
+
+    }
+
     /*********************************************************************
      *                             ADMIN                                 *
      *********************************************************************/
 
     @Override
     public void onChatState(ChatState state) {
-        ChatListener.super.onChatState(state);
+        System.out.println(state);
+    }
+
+    @Override
+    public void OnLogEvent(String s) {
+
     }
 
     /**
      * set role
      */
-
 
 
     public void addAdmin() {
@@ -337,6 +346,14 @@ public class ChatMain implements ChatListener {
         chatController.getHistory(requestGetHistory1, null);*/
     }
 
+    public void getHistory2() {
+        GetHistoryRequest h = new GetHistoryRequest
+                .Builder()
+                .setSubjectId(3252552l)
+                .build();
+        chat.getHistory2(h);
+    }
+
     /******************************************************************
      *                           THREAD                               *
      * ****************************************************************/
@@ -446,14 +463,31 @@ public class ChatMain implements ChatListener {
         chat.sendTextMessage(requestThread);
     }
 
+    public void sendMessage2() {
+        SendMessageRequest request = new SendMessageRequest
+                .Builder()
+                .setMessageType(1)
+                .setThreadId(3252552l)
+                .setMessage("Hello")
+                .setSubjectId(3252552l)
+                .build();
+        chat.sendTextMessage2(request);
+    }
+
     /**
      * get thread
      */
-    private void getThreads() {
-        RequestThread requestThread = new RequestThread
+//    public void getThreads() {
+//        RequestThread requestThread = new RequestThread
+//                .Builder()
+//                .build();
+//        chat.getThreads(requestThread);
+//    }
+    public void getThreads() {
+        GetThreadRequest req = new GetThreadRequest
                 .Builder()
                 .build();
-        chat.getThreads(requestThread);
+        chat.getThreads(req);
     }
 
     /**

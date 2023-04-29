@@ -8,9 +8,12 @@ public class Main {
     public static void main(String[] args) {
         ChatMain chatMain = new ChatMain();
         chatMain.init();
-
-       // chatMain.addContact();
-
+//        chatMain.getAdmin();
+//        chatMain.getThreads();
+        // chatMain.addContact();
+//        chatMain.getThreads();
+//        chatMain.getHistory2();
+        chatMain.sendMessage2();
     }
 
 }
