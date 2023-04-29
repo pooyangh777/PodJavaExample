@@ -5,6 +5,7 @@ import asyncSdk.AsyncConfig;
 
 import chatSdk.chat.Chat;
 import chatSdk.chat.ChatListener;
+import chatSdk.dataTransferObject.ChatResponse;
 import chatSdk.dataTransferObject.chat.*;
 import chatSdk.dataTransferObject.contacts.inPut.RequestSearchContact;
 import chatSdk.dataTransferObject.contacts.outPut.*;
@@ -12,6 +13,7 @@ import chatSdk.dataTransferObject.file.outPut.RequestFileMessage;
 import chatSdk.dataTransferObject.file.outPut.RequestReplyFileMessage;
 import chatSdk.dataTransferObject.file.outPut.RequestUploadFile;
 import chatSdk.dataTransferObject.file.outPut.RequestUploadImage;
+import chatSdk.dataTransferObject.message.inPut.ResultNewMessage;
 import chatSdk.dataTransferObject.message.outPut.*;
 import chatSdk.dataTransferObject.system.outPut.*;
 import chatSdk.dataTransferObject.thread.inPut.Invitee;
@@ -758,5 +760,8 @@ public class ChatMain implements ChatListener {
 
     }
 
-
+    @Override
+    public void onNewMessage(String content, ChatResponse<ResultNewMessage> response) {
+        ChatListener.super.onNewMessage(content, response);
+    }
 }
