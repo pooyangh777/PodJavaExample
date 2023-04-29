@@ -12,8 +12,8 @@ public class Main {
 //        chatMain.getThreads();
         // chatMain.addContact();
 //        chatMain.getThreads();
-//        chatMain.getHistory2();
-        chatMain.sendMessage2();
+        chatMain.getHistory2();
+//        chatMain.sendMessage2();
     }
 
 }

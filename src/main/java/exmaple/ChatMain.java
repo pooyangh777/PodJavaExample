@@ -18,6 +18,7 @@ import chatSdk.dataTransferObject.message.outPut.*;
 import chatSdk.dataTransferObject.system.outPut.*;
 import chatSdk.dataTransferObject.thread.inPut.Invitee;
 import chatSdk.dataTransferObject.thread.outPut.*;
+import chatSdk.dataTransferObject.user.inPut.ResultHistory;
 import chatSdk.dataTransferObject.user.outPut.*;
 import chatSdk.mainmodel.RequestThreadInnerMessage;
 import com.google.gson.Gson;
@@ -85,7 +86,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("5f5a813e4c584847bfafa18481891c9d.XzIwMjM0")
+                .token("c32128a2d14045db8128f4f113128919.XzIwMjM0")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -754,14 +755,16 @@ public class ChatMain implements ChatListener {
         RequestUploadFile requestUploadFile = new RequestUploadFile
                 .Builder("D:\\Music.rar")
                 .build();
-
         chat.uploadFile(requestUploadFile);
-
-
     }
 
     @Override
     public void onNewMessage(String content, ChatResponse<ResultNewMessage> response) {
         ChatListener.super.onNewMessage(content, response);
+    }
+
+    @Override
+    public void onGetHistory(String content, ChatResponse<ResultHistory> history) {
+        ChatListener.super.onGetHistory(content, history);
     }
 }
