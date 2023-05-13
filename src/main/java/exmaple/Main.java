@@ -40,6 +40,7 @@ public class Main {
 //        chatMain.unReadMessageCount();                     ////dont work correct
 //        chatMain.signalMessage();
 //        chatMain.currentUserRoles();
+        chatMain.getContact2();
     }
 
 }

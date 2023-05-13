@@ -324,6 +324,14 @@ public class ChatMain implements ChatListener {
         chat.getContacts(requestGetContact);
     }
 
+    public void getContact2()
+    {
+        GetContactsRequest request = new GetContactsRequest
+                .Builder()
+                .build();
+        chat.getContacts2(request);
+    }
+
     /**
      * block
      */
