@@ -86,7 +86,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("75603e41844241b48bace690b0225323.XzIwMjM1")
+                .token("090789783ed84c3cbcadd6f36f7daa23.XzIwMjM1")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -480,7 +480,7 @@ public class ChatMain implements ChatListener {
     }
 
     public void deleteMessage2() {
-        ArrayList<Long> arr = new ArrayList<>(Arrays.asList(727316748l));
+        ArrayList<Long> arr = new ArrayList<>(Arrays.asList(747980693l));
         DeleteMessageRequest request = new DeleteMessageRequest
                 .Builder()
                 .setMessageIds(arr)
@@ -696,6 +696,21 @@ public class ChatMain implements ChatListener {
 //        invitees[1] = invitee2;
 
         chat.createThread(ThreadType.NORMAL, invitees, "sendMessage", "", "", "", "default");
+    }
+
+    public void createThread2() {
+        Invitee[] invitees = new Invitee[1];
+        Invitee invitee = new Invitee();
+        invitee.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
+        invitee.setId("192707888");
+        invitees[0] = invitee;
+        CreateThreadRequest request = new CreateThreadRequest
+                .Builder()
+                .setType(ThreadType.NORMAL)
+                .setInvitees(Arrays.asList(invitees))
+                .setTitle("sendMessage")
+                .build();
+        chat.createThread2(request);
     }
 
     /**
