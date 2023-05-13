@@ -86,7 +86,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("afd010e87edc41e48482fc80145fb1bc.XzIwMjM1")
+                .token("75603e41844241b48bace690b0225323.XzIwMjM1")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -1025,13 +1025,13 @@ public class ChatMain implements ChatListener {
 //        chat.signalMessage2(request);
 //    }
 
-    public void currentUserRoles()
-    {
-        GeneralRequest request = new GeneralRequest
-                .Builder()
-                .setMessageType(ChatMessageType.GET_CURRENT_USER_ROLES)
-                .setSubjectId(4026226l)
-                .build();
-        chat.currentUserRoles(request);
-    }
+//    public void currentUserRoles()
+//    {
+//        GeneralRequest request = new GeneralRequest
+//                .Builder()
+//                .setMessageType(ChatMessageType.GET_CURRENT_USER_ROLES)
+//                .setSubjectId(4026226l)
+//                .build();
+//        chat.currentUserRoles(request);
+//    }
 }

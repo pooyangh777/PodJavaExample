@@ -39,7 +39,7 @@ public class Main {
 //        chatMain.getBlockList2();
 //        chatMain.unReadMessageCount();                     ////dont work correct
 //        chatMain.signalMessage();
-        chatMain.currentUserRoles();
+//        chatMain.currentUserRoles();
     }
 
 }
