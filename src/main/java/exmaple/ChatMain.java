@@ -86,7 +86,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("41337e085f05406190da97c3342d7007.XzIwMjM1")
+                .token("afd010e87edc41e48482fc80145fb1bc.XzIwMjM1")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -344,7 +344,7 @@ public class ChatMain implements ChatListener {
 //        chat.block2(request);
         BlockRequest request = new BlockRequest
                 .Builder()
-                .setSubjectId(3252552l)
+                .setThreadId(3252552l)
                 .build();
         chat.block2(request);
     }
@@ -1014,5 +1014,24 @@ public class ChatMain implements ChatListener {
                 .setCountMutedThreads(false)
                 .build();
         chat.unReadMessageCount2(request);
+    }
+//    public void signalMessage()
+//    {
+//        SignalMessageRequest request = new SignalMessageRequest
+//                .Builder()
+//                .setThreadId(4026226l)
+//                .setType(SignalMessageType.isTyping)
+//                .build();
+//        chat.signalMessage2(request);
+//    }
+
+    public void currentUserRoles()
+    {
+        GeneralRequest request = new GeneralRequest
+                .Builder()
+                .setMessageType(ChatMessageType.GET_CURRENT_USER_ROLES)
+                .setSubjectId(4026226l)
+                .build();
+        chat.currentUserRoles(request);
     }
 }

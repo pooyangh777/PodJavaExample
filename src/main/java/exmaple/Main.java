@@ -22,7 +22,7 @@ public class Main {
 //        chatMain.editMessage2();
 //        chatMain.getUserinfo();
 //        chatMain.addAdmin2();             //dont work correct
-        chatMain.block2();
+//        chatMain.block2();
 //        chatMain.unBlock2();
 //        chatMain.deleteMessage2();
 //        chatMain.addParticipants2();
@@ -38,6 +38,8 @@ public class Main {
 //        chatMain.seenMessage2();
 //        chatMain.getBlockList2();
 //        chatMain.unReadMessageCount();                     ////dont work correct
+//        chatMain.signalMessage();
+        chatMain.currentUserRoles();
     }
 
 }
