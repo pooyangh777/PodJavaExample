@@ -526,10 +526,10 @@ public class ChatMain implements ChatListener {
     public void createThreadWithMessage2() {
         ThreadInnerMessageRequest messageRequest = new ThreadInnerMessageRequest
                 .Builder()
-                .setText("hello mr Hamed")
+                .setText("hello mr Pooya")
                 .build();
         Invitee invitee = new Invitee();
-        invitee.setId("09129685022");
+        invitee.setId("09363842670");
         invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
 //        Invitee[] invitees = new Invitee[1];
 //        Invitee invitee = new Invitee();
