@@ -18,7 +18,6 @@ import chatSdk.dataTransferObject.system.outPut.*;
 import chatSdk.dataTransferObject.thread.inPut.Invitee;
 import chatSdk.dataTransferObject.thread.outPut.*;
 import chatSdk.dataTransferObject.user.outPut.*;
-import chatSdk.mainmodel.RequestThreadInnerMessage;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,7 +85,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("090789783ed84c3cbcadd6f36f7daa23.XzIwMjM1")
+                .token("3ab1cd2271d049e79e65309a3a9ab4ec.XzIwMjM1")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -492,14 +491,14 @@ public class ChatMain implements ChatListener {
     /**
      * create thread with message
      */
-    private void createThreadWithMessage() {
+    public void createThreadWithMessage() {
         RequestThreadInnerMessage requestThreadInnerMessage = new RequestThreadInnerMessage
                 .Builder()
                 .message("hello world")
                 .build();
 
         Invitee invitee = new Invitee();
-        invitee.setId("09900449643");
+        invitee.setId("09129685022");
         invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
 
 //        Invitee invitee1 = new Invitee();
@@ -514,6 +513,32 @@ public class ChatMain implements ChatListener {
                 .build();
         chat.createThreadWithMessage(requestCreateThreadWithMessage);
 
+    }
+
+    public void createThreadWithMessage2() {
+        ThreadInnerMessageRequest messageRequest = new ThreadInnerMessageRequest
+                .Builder()
+                .setText("hello mr Hamed")
+                .build();
+        Invitee invitee = new Invitee();
+        invitee.setId("09129685022");
+        invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
+//        Invitee[] invitees = new Invitee[1];
+//        Invitee invitee = new Invitee();
+//        invitee.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
+//        invitee.setId("192707888");
+//        invitees[0] = invitee;
+
+        CreateThreadWithMessageRequest request = new CreateThreadWithMessageRequest
+                .Builder()
+                .setType(ThreadType.NORMAL)
+                .setInvitees(new ArrayList<Invitee>() {{
+                    add(invitee);
+                }})
+                .setMessage(messageRequest)
+//                .setInvitees(Arrays.asList(invitees))
+                .build();
+        chat.createThreadWithMessage2(request);
     }
 
     /**
