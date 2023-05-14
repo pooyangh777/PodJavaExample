@@ -42,6 +42,7 @@ public class Main {
 //        chatMain.currentUserRoles();
 //        chatMain.createThread2();
 //        chatMain.createThreadWithMessage2();
+//        chatMain.getContact2();
     }
 
 }
