@@ -12,37 +12,37 @@ public class Main {
 //        chatMain.getThreads();
         // chatMain.addContact();
 //        chatMain.getThreads();
-//        chatMain.getHistory2();
-//        chatMain.sendMessage2();
-//        chatMain.mute2();
-//        chatMain.unMute2();
-//        chatMain.pinThread2();
-//        chatMain.unPinThread2();
-//        chatMain.getParticipant2();
-//        chatMain.editMessage2();
+//        chatMain.getHistory();
+//        chatMain.sendMessage();
+//        chatMain.mute();
+//        chatMain.unMute();
+//        chatMain.pinThread();
+//        chatMain.unPinThread();
+//        chatMain.getParticipant();
+//        chatMain.editMessage();
 //        chatMain.getUserinfo();
-//        chatMain.addAdmin2();             //dont work correct
-//        chatMain.block2();
-//        chatMain.unBlock2();
-//        chatMain.deleteMessage2();
-//        chatMain.addParticipants2();
-//        chatMain.removeParticipants2();
-//        chatMain.closeThread2();                 //dont work correct (system bug)
-//        chatMain.leaveThread2();
+//        chatMain.addAdmin();             //dont work correct
+//        chatMain.block();
+//        chatMain.unBlock();
+//        chatMain.deleteMessage();
+//        chatMain.addParticipants();
+//        chatMain.removeParticipants();
+//        chatMain.closeThread();                 //dont work correct (system bug)
+//        chatMain.leaveThread();
 //        chatMain.pinMessage();
-//        chatMain.clearHistory2();
-//        chatMain.getDeliveredList2();
+//        chatMain.clearHistory();
+//        chatMain.getDeliveredList();
 //        chatMain.deliveryMessage();
-//        chatMain.forwardMessage2();
-//        chatMain.replyMessage2();
-//        chatMain.seenMessage2();
-//        chatMain.getBlockList2();
+//        chatMain.forwardMessage();
+//        chatMain.replyMessage();
+//        chatMain.seenMessage();
+//        chatMain.getBlockList();
 //        chatMain.unReadMessageCount();                     ////dont work correct
-//        chatMain.signalMessage();
+        chatMain.signalMessage();
 //        chatMain.currentUserRoles();
-//        chatMain.createThread2();
-//        chatMain.createThreadWithMessage2();
-//        chatMain.getContact2();
+//        chatMain.createThread();
+//        chatMain.createThreadWithMessage();
+//        chatMain.getContact();
     }
 
 }
