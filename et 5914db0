@@ -1,0 +1,16 @@
+[33ma99d08e[m[33m ([m[1;36mHEAD -> [m[1;32mRefactor[m[33m)[m before merge
+[33m8743c0c[m[33m ([m[1;31morigin/Refactor[m[33m)[m Fix excessive log files
+[33m58226d8[m - Fix create thread With message
+[33m69f30ee[m Merge branch 'add_get_contacts' into Refactor
+[33md82db6e[m Merge branch 'add_create_thread_with_message' into Refactor
+[33mff554e2[m add_create_thread_with_message
+[33m9f097dd[m add_create_thread
+[33mb23092e[m add_get_get_contacts
+[33m4a16b4e[m first commit
+[33m9ac6d3c[m add_current_user_info
+[33mf29dad2[m for_merge
+[33me418053[m build project
+[33m3fc5421[m refactor example start
+[33ma02e978[m first commit
+[33m0be05e9[m second commit
+[33m945cf71[m[33m ([m[1;32mmain[m[33m)[m Initial commit

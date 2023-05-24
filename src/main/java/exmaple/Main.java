@@ -1,5 +1,14 @@
 package exmaple;
 
+import chatSdk.chat.Chat;
+import chatSdk.chat.ChatListener;
+import chatSdk.chat.chatInterface.ThreadInterface;
+import chatSdk.dataTransferObject.chat.ChatState;
+import chatSdk.dataTransferObject.system.outPut.ErrorOutPut;
+import chatSdk.dataTransferObject.thread.inPut.Conversation;
+
+import java.util.List;
+
 /**
  * Created By Khojasteh on 7/30/2019
  */
@@ -36,13 +45,13 @@ public class Main {
 //        chatMain.forwardMessage();
 //        chatMain.replyMessage();
 //        chatMain.seenMessage();
-//        chatMain.getBlockList();
+        chatMain.getBlockList();
 //        chatMain.unReadMessageCount();                     ////dont work correct
-        chatMain.signalMessage();
+//        chatMain.signalMessage();
 //        chatMain.currentUserRoles();
 //        chatMain.createThread();
 //        chatMain.createThreadWithMessage();
 //        chatMain.getContact();
     }
-
 }
+

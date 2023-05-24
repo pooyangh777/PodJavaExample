@@ -5,11 +5,15 @@ import asyncSdk.AsyncConfig;
 
 import chatSdk.chat.Chat;
 import chatSdk.chat.ChatListener;
+import chatSdk.dataTransferObject.ChatResponse;
 import chatSdk.dataTransferObject.GeneralRequest;
+import chatSdk.dataTransferObject.GeneralResponse;
 import chatSdk.dataTransferObject.chat.*;
+import chatSdk.dataTransferObject.contacts.inPut.Contact;
 import chatSdk.dataTransferObject.contacts.outPut.*;
 import chatSdk.dataTransferObject.message.outPut.*;
 import chatSdk.dataTransferObject.system.outPut.*;
+import chatSdk.dataTransferObject.thread.inPut.ConversationResponse;
 import chatSdk.dataTransferObject.thread.inPut.Invitee;
 import chatSdk.dataTransferObject.thread.outPut.*;
 import chatSdk.dataTransferObject.user.outPut.*;
@@ -80,7 +84,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("670d1b274a0244e1b553134f1ebb8066.XzIwMjM1")
+                .token("5d642059be7842a2ad02d419e694e7ec.XzIwMjM1")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -150,7 +154,7 @@ public class ChatMain implements ChatListener {
 //        chat.block2(request);
         BlockRequest request = new BlockRequest
                 .Builder()
-                .setThreadId(3252552l)
+                .setThreadId(3252552L)
                 .build();
         chat.block(request);
     }
@@ -158,12 +162,12 @@ public class ChatMain implements ChatListener {
     public void unBlock() {
         UnBlockRequest request = new UnBlockRequest
                 .Builder()
-                .setContactId(192707888l)
+                .setContactId(192707888L)
                 .build();
         chat.unBlock(request);
     }
 
-    public void getBlockList2() {
+    public void getBlockList() {
         BlockListRequest request = new BlockListRequest
                 .Builder()
                 .build();
@@ -173,7 +177,7 @@ public class ChatMain implements ChatListener {
     public void clearHistory2() {
         ClearHistoryRequest request = new ClearHistoryRequest
                 .Builder()
-                .setThreadId(4049730l)
+                .setThreadId(4049730L)
                 .build();
         chat.clearHistory(request);
     }
@@ -181,7 +185,7 @@ public class ChatMain implements ChatListener {
     public void getHistory() {
         GetHistoryRequest h = new GetHistoryRequest
                 .Builder()
-                .setSubjectId(3252552l)
+                .setSubjectId(3252552L)
                 .build();
         chat.getHistory(h);
     }
@@ -189,7 +193,7 @@ public class ChatMain implements ChatListener {
     public void leaveThread() {
         LeaveThreadRequest request = new LeaveThreadRequest
                 .Builder()
-                .setThreadId(4049730l)
+                .setThreadId(4049730L)
                 .setClearHistory(false)
                 .build();
         chat.leaveThread(request);
@@ -198,7 +202,7 @@ public class ChatMain implements ChatListener {
     public void editMessage() {
         EditMessageRequest request = new EditMessageRequest
                 .Builder().setMessageContent("Mr Hamed Hosseini")
-                .setSubjectId(709735935l)
+                .setSubjectId(709735935L)
                 .setMessageId(21)
                 .build();
         chat.editMessage(request);
@@ -208,9 +212,9 @@ public class ChatMain implements ChatListener {
         SendMessageRequest request = new SendMessageRequest
                 .Builder()
                 .setMessageType(1)
-                .setThreadId(3252552l)
+                .setThreadId(3252552L)
                 .setMessage("Hello")
-                .setSubjectId(3252552l)
+                .setSubjectId(3252552L)
                 .build();
         chat.sendTextMessage(request);
     }
@@ -223,11 +227,11 @@ public class ChatMain implements ChatListener {
     }
 
     public void forwardMessage() {
-        ArrayList<Long> arr = new ArrayList<>(Arrays.asList(732957905l, 732958040l));
+        ArrayList<Long> arr = new ArrayList<>(Arrays.asList(732957905L, 732958040L));
         ForwardMessageRequest request = new ForwardMessageRequest
                 .Builder()
                 .setMessageIds(arr)
-                .setThreadId(4049730l)
+                .setThreadId(4049730L)
                 .build();
         chat.forwardMessage(request);
     }
@@ -236,8 +240,8 @@ public class ChatMain implements ChatListener {
         ReplyMessageRequest request = new ReplyMessageRequest
                 .Builder()
                 .setMessage("good_morning")
-                .setThreadId(3252552l)
-                .setRepliedTo(735778335l)
+                .setThreadId(3252552L)
+                .setRepliedTo(735778335L)
                 .build();
         chat.replyMessage(request);
     }
@@ -260,7 +264,7 @@ public class ChatMain implements ChatListener {
     public void seenMessage() {
         SeenMessageListRequest request = new SeenMessageListRequest
                 .Builder()
-                .setMessageId(732957905l)
+                .setMessageId(732957905L)
                 .build();
         chat.seenMessageList(request);
     }
@@ -268,14 +272,14 @@ public class ChatMain implements ChatListener {
     public void getDeliveredList() {
         DeliveredMessageListRequest request = new DeliveredMessageListRequest
                 .Builder()
-                .setMessageId(732613721l)
+                .setMessageId(732613721L)
                 .build();
         chat.deliveredMessageList(request);
     }
 
     public void mute() {
         GeneralRequest request = new GeneralRequest
-                .Builder().setSubjectId(3252552l)
+                .Builder().setSubjectId(3252552L)
                 .setMessageType(ChatMessageType.MUTE_THREAD)
                 .build();
         chat.muteThread(request);
@@ -284,7 +288,7 @@ public class ChatMain implements ChatListener {
     public void unMute() {
         GeneralRequest request = new GeneralRequest
                 .Builder()
-                .setSubjectId(3252552l)
+                .setSubjectId(3252552L)
                 .setMessageType(ChatMessageType.UN_MUTE_THREAD)
                 .build();
         chat.unMuteThread(request);
@@ -293,7 +297,7 @@ public class ChatMain implements ChatListener {
     public void pinThread() {
         GeneralRequest request = new GeneralRequest
                 .Builder()
-                .setSubjectId(3252552l)
+                .setSubjectId(3252552L)
                 .setMessageType(ChatMessageType.PIN_THREAD)
                 .build();
         chat.pinThread(request);
@@ -302,18 +306,18 @@ public class ChatMain implements ChatListener {
     public void unPinThread() {
         GeneralRequest request = new GeneralRequest
                 .Builder()
-                .setSubjectId(3252552l)
+                .setSubjectId(3252552L)
                 .setMessageType(ChatMessageType.UNPIN_THREAD)
                 .build();
         chat.unPinThread(request);
     }
 
     public void removeParticipants() {
-        List<Long> arr = new ArrayList<>(Arrays.asList(3463768l));
+        List<Long> arr = new ArrayList<>(Arrays.asList(3463768L));
         RemoveParticipantsRequest request = new RemoveParticipantsRequest
                 .Builder()
                 .setParticipantIds(arr)
-                .setThreadId(4026226l)
+                .setThreadId(4026226L)
                 .build();
         chat.removeParticipants(request);
     }
@@ -321,13 +325,13 @@ public class ChatMain implements ChatListener {
     public void getParticipant() {
         ThreadParticipantRequest request = new ThreadParticipantRequest
                 .Builder()
-                .setSubjectId(3252552l)
+                .setSubjectId(3252552L)
                 .build();
         chat.getThreadParticipants(request);
     }
 
     public void addParticipants() {
-        List<Long> arr = new ArrayList<>(Arrays.asList(192707888l, 246634476l));
+        List<Long> arr = new ArrayList<>(Arrays.asList(192707888L, 246634476L));
         AddParticipantsRequest request = new AddParticipantsRequest
                 .Builder()
                 .setContactIds(arr)
@@ -347,7 +351,7 @@ public class ChatMain implements ChatListener {
     public void closeThread2() {
         GeneralRequest request = new GeneralRequest
                 .Builder()
-                .setSubjectId(4026226l)
+                .setSubjectId(4026226L)
 //                .setMessageType(ChatMessageType.CLOSE_THREAD)
                 .build();
         chat.closeThread(request);
@@ -356,7 +360,7 @@ public class ChatMain implements ChatListener {
     public void pinMessage() {
         PinMessageRequest request = new PinMessageRequest
                 .Builder()
-                .setMessageId(732613721l)
+                .setMessageId(732613721L)
                 .setNotifyAll(false)
                 .build();
         chat.pinMessage(request);
@@ -381,7 +385,7 @@ public class ChatMain implements ChatListener {
     public void signalMessage() {
         SignalMessageRequest request = new SignalMessageRequest
                 .Builder()
-                .setThreadId(3252552l)
+                .setThreadId(3252552L)
                 .setType(SignalMessageType.isTyping)
                 .build();
         chat.signalMessage(request);
@@ -391,8 +395,59 @@ public class ChatMain implements ChatListener {
         GeneralRequest request = new GeneralRequest
                 .Builder()
                 .setMessageType(ChatMessageType.GET_CURRENT_USER_ROLES)
-                .setSubjectId(4026226l)
+                .setSubjectId(4026226L)
                 .build();
         chat.currentUserRoles(request);
     }
+
+    @Override
+    public void onGetThread(ChatResponse<ConversationResponse[]> thread) {
+        ChatListener.super.onGetThread(thread);
+    }
+
+    @Override
+    public void onGetContacts2(ChatResponse<Contact[]> contacts) {
+        ChatListener.super.onGetContacts2(contacts);
+    }
+
+    @Override
+    public void onMuteThread(ChatResponse<GeneralResponse> mute) {
+        ChatListener.super.onMuteThread(mute);
+    }
+
+    @Override
+    public void onUnmuteThread(ChatResponse<GeneralResponse> unmute) {
+        ChatListener.super.onUnmuteThread(unmute);
+    }
+
+    @Override
+    public void onPinThread(ChatResponse<GeneralResponse> pin) {
+        ChatListener.super.onPinThread(pin);
+    }
+
+    @Override
+    public void onUnPinThread(ChatResponse<GeneralResponse> unPin) {
+        ChatListener.super.onUnPinThread(unPin);
+    }
+
+    @Override
+    public void onCreateThread(ChatResponse<ConversationResponse> createThread) {
+        ChatListener.super.onCreateThread(createThread);
+    }
+
+    @Override
+    public void onBlock2(ChatResponse<Contact> block) {
+        ChatListener.super.onBlock2(block);
+    }
+
+    @Override
+    public void onUnblock2(ChatResponse<Contact> unblock) {
+        ChatListener.super.onUnblock2(unblock);
+    }
+
+    @Override
+    public void onGetBlockList2(ChatResponse<Contact[]> blockList) {
+        ChatListener.super.onGetBlockList2(blockList);
+    }
 }
+
