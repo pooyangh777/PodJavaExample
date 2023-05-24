@@ -20,7 +20,7 @@ public class Main {
 //        chatMain.getAdmin();
 //        chatMain.getThreads();
         // chatMain.addContact();
-//        chatMain.getThreads();
+        chatMain.getThreads();
 //        chatMain.getHistory();
 //        chatMain.sendMessage();
 //        chatMain.mute();
@@ -45,7 +45,7 @@ public class Main {
 //        chatMain.forwardMessage();
 //        chatMain.replyMessage();
 //        chatMain.seenMessage();
-        chatMain.getBlockList();
+//        chatMain.getBlockList();
 //        chatMain.unReadMessageCount();                     ////dont work correct
 //        chatMain.signalMessage();
 //        chatMain.currentUserRoles();
@@ -54,4 +54,3 @@ public class Main {
 //        chatMain.getContact();
     }
 }
-

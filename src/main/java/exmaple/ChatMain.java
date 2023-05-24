@@ -11,9 +11,10 @@ import chatSdk.dataTransferObject.GeneralResponse;
 import chatSdk.dataTransferObject.chat.*;
 import chatSdk.dataTransferObject.contacts.inPut.Contact;
 import chatSdk.dataTransferObject.contacts.outPut.*;
+import chatSdk.dataTransferObject.message.inPut.Message;
 import chatSdk.dataTransferObject.message.outPut.*;
 import chatSdk.dataTransferObject.system.outPut.*;
-import chatSdk.dataTransferObject.thread.inPut.ConversationResponse;
+import chatSdk.dataTransferObject.thread.inPut.Conversation;
 import chatSdk.dataTransferObject.thread.inPut.Invitee;
 import chatSdk.dataTransferObject.thread.outPut.*;
 import chatSdk.dataTransferObject.user.outPut.*;
@@ -84,7 +85,7 @@ public class ChatMain implements ChatListener {
         ChatConfig chatConfig = ChatConfig.builder()
                 .asyncConfig(asyncConfig)
                 .severName(serverName)
-                .token("5d642059be7842a2ad02d419e694e7ec.XzIwMjM1")
+                .token("1c2610b6ec204d29a477d4f176b88875.XzIwMjM1")
 //        "84831a17a1f94f4683b783470ae21d41.XzIwMjIxMg"
                 .chatId(chatId)
                 .fileServer(fileServer)
@@ -401,13 +402,13 @@ public class ChatMain implements ChatListener {
     }
 
     @Override
-    public void onGetThread(ChatResponse<ConversationResponse[]> thread) {
-        ChatListener.super.onGetThread(thread);
+    public void onGetThread(ChatResponse<Conversation[]> threads) {
+        ChatListener.super.onGetThread(threads);
     }
 
     @Override
-    public void onGetContacts2(ChatResponse<Contact[]> contacts) {
-        ChatListener.super.onGetContacts2(contacts);
+    public void onGetContacts(ChatResponse<Contact[]> contacts) {
+        ChatListener.super.onGetContacts(contacts);
     }
 
     @Override
@@ -431,23 +432,23 @@ public class ChatMain implements ChatListener {
     }
 
     @Override
-    public void onCreateThread(ChatResponse<ConversationResponse> createThread) {
-        ChatListener.super.onCreateThread(createThread);
+    public void onBlock(ChatResponse<Contact> block) {
+        ChatListener.super.onBlock(block);
     }
 
     @Override
-    public void onBlock2(ChatResponse<Contact> block) {
-        ChatListener.super.onBlock2(block);
+    public void onUnblock(ChatResponse<Contact> unblock) {
+        ChatListener.super.onUnblock(unblock);
     }
 
     @Override
-    public void onUnblock2(ChatResponse<Contact> unblock) {
-        ChatListener.super.onUnblock2(unblock);
+    public void onGetBlockList(ChatResponse<Contact[]> blockList) {
+        ChatListener.super.onGetBlockList(blockList);
     }
 
     @Override
-    public void onGetBlockList2(ChatResponse<Contact[]> blockList) {
-        ChatListener.super.onGetBlockList2(blockList);
+    public void onGetHistory(ChatResponse<Message[]> messages) {
+        ChatListener.super.onGetHistory(messages);
     }
 }
 
